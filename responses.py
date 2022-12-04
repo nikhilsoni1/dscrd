@@ -19,7 +19,7 @@ def get_response(message: str) -> str:
     if p_message == "!q":
         return get_quote()
 
-    return 'I didn\'t understand what you wrote. Try typing "!help".'
+    return None
 
 def get_quote():
     response = requests.get("https://zenquotes.io/api/random")
