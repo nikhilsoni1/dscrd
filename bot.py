@@ -38,7 +38,7 @@ def run_discord_bot():
         if user_message[0] == "?":
             user_message = user_message[1:]
             await send_message(message, user_message, is_private=True)
-        elif len(user_message[0]) == 2:
+        elif len(user_message) == 2:
             await send_message(message, user_message, is_private=False)
         else:
             pass
