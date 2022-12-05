@@ -51,9 +51,10 @@ async def roll(ctx, number_of_dice=1, number_of_sides=6):
 async def get_quote(ctx):
     response = requests.get("https://zenquotes.io/api/random")
     json_data = response.json()
-    q = json_data[0]["q"]
-    a = json_data[0]["a"]
-    pld = f"{q} - {a}"
-    await ctx.send(pld)
+    q = json_data[0]["q"].strip()
+    a = json_data[0]["a"].strip()
+    embedVar = discord.Embed(title="says...", description=q, color=discord.Color.random())
+    embedVar.set_author(name=a)
+    await ctx.send(embed=embedVar)
 
 bot.run(TOKEN)
