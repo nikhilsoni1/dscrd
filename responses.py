@@ -2,6 +2,7 @@ import random
 import json
 import requests
 from pprint import pprint
+import discord
 
 
 def get_response(message: str) -> str:
@@ -42,5 +43,8 @@ def get_b99():
     h = q.get("Header")
     e = q.get("Episode")
     t = q.get("QuoteText")
-    fq = f"{h}\n\nFrom ep. {e} | By char. {c}\n\n{t}"
+
+    t_t = t.replace(". ", ".\n\n")
+    embedVar = discord.Embed(title=h, description=t_t, type="rich")
+    await ctx.send(embed=embedVar)
     return fq

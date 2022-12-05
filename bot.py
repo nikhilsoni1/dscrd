@@ -1,45 +1,59 @@
 import discord
-import responses
+from discord.ext import commands
+# import responses
 import os
+import json
+import random
+import requests
 
 
-async def send_message(message, user_message, is_private):
-    try:
-        response = responses.get_response(user_message)
-        await message.author.send(
-            response
-        ) if is_private else await message.channel.send(response)
-
-    except Exception as e:
-        print(e)
+TOKEN = os.getenv("DISCORD_TOKEN")
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 
-def run_discord_bot():
-    TOKEN = os.getenv("DISCORD_TOKEN")
-    intents = discord.Intents.default()
-    intents.message_content = True
-    client = discord.Client(intents=intents)
+@bot.event
+async def on_ready():
+    print(f"{bot.user.name} has connected to Discord!")
 
-    @client.event
-    async def on_ready():
-        print(f"{client.user} is now running!")
 
-    @client.event
-    async def on_message(message):
-        if message.author == client.user:
-            return
+@bot.command(name="qb99", help="Responds with a random quote from Brooklyn 99")
+async def nine_nine(ctx):
+    with open("b99.json", "r") as stream:
+        _root = json.load(stream)
+    j = _root.get("root")
+    q = random.choice(j)
+    c = q.get("Character")
+    h = q.get("Header")
+    e = q.get("Episode")
+    t = q.get("QuoteText")
+    t_t = t.replace(". ", ".\n\n")
+    embedVar = discord.Embed(title=h, description=t_t, type="rich")
+    await ctx.send(embed=embedVar)
 
-        username = str(message.author)
-        user_message = str(message.content)
-        channel = str(message.channel)
 
-        print(f'{username} said: "{user_message}" ({channel})')
+@bot.command(name="roll_dice", help="Simulates rolling dice.")
+async def roll(ctx, number_of_dice=1, number_of_sides=6):
+    d = range(1, number_of_sides+1)
+    r = list()
+    for i in range(number_of_dice):
+        p = str(random.choice(d))
+        r.append(p)
+    if len(r) > 1:
+        response = f"({', '.join(r)})"
+    else:
+        response = f"{r[0]}"
+    print(response)
+    await ctx.send(response)
 
-        if user_message == "!q":
-            await send_message(message, user_message, is_private=False)
-        if user_message == "!qb99":
-            await send_message(message, user_message, is_private=False)
-        else:
-            pass
+@bot.command(name="q", help="Get a random quote from zenquotes.io")
+async def get_quote(ctx):
+    response = requests.get("https://zenquotes.io/api/random")
+    json_data = response.json()
+    q = json_data[0]["q"]
+    a = json_data[0]["a"]
+    pld = f"{q} - {a}"
+    await ctx.send(pld)
 
-    client.run(TOKEN)
+bot.run(TOKEN)
