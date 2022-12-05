@@ -19,6 +19,10 @@ def get_response(message: str) -> str:
     if p_message == "!q":
         return get_quote()
 
+    if p_message == "!qb99":
+        return get_b99()
+        
+
     return None
 
 def get_quote():
@@ -28,3 +32,15 @@ def get_quote():
     a = json_data[0]["a"]
     pld = f"{q} - {a}"
     return pld
+
+def get_b99():
+    with open("b99.json", "r") as stream:
+        _root = json.load(stream)
+    j = _root.get("root")
+    q = random.choice(j)
+    c = q.get("Character")
+    h = q.get("Header")
+    e = q.get("Episode")
+    t = q.get("QuoteText")
+    fq = f"{h}\n\nFrom ep. {e} | By char. {c}\n\n{t}"
+    return fq
