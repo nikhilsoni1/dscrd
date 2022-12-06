@@ -55,7 +55,6 @@ async def on_ready():
     else:
         send_embed_flag = False
 
-    footer = f"{footer}\nClean-ups occur regularly, messages which aren't quotes will be deleted."
     if send_embed_flag:
         embedVar = discord.Embed(title=title, description=description, color=discord.Color.red())
         embedVar.set_footer(text=footer)
