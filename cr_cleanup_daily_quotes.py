@@ -4,6 +4,7 @@ import requests
 import pytz
 import datetime
 import emoji
+import random
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -32,15 +33,25 @@ async def on_ready():
     for m_d in discord.utils.as_chunks(messages, step):
         await channel.delete_messages(m_d, reason=f"{channel.name} clean-up, {client.user} messages kept intact.")
     
-    title = emoji.emojize("Clean-up :broom: :broom:")
-    footer = emoji.emojize("Swacch discord abhiyan :man_beard:")
+    footer_options=list()
+    f1 = emoji.emojize("Swacch discord abhiyan :man_beard:")
+    footer_options.append(f1)
+
+    f2 = emoji.emojize("Don't be naughty, be paavam :heart_hands:")
+    footer_options.append(f2)
+
+    f3 = emoji.emojize("Aag laga di! Aag laga di! Aag laga di! :fire: :fire: :fire:")
+    footer_options.append(f3) 
+    
+    title = emoji.emojize("Clean-up anna :broom: :broom:")
+    footer = random.choice(footer_options)
 
     len_messages = len(messages)
     send_embed_flag = True
     if len_messages == 1:
-        description = f"Deleted {len(messages)} message which wasn't a quote!"
+        description = f"Deleted {len(messages)} message that wasn't a quote!"
     elif len_messages > 1:
-        description = f"Deleted {len(messages)} messages which weren't quotes!"
+        description = f"Deleted {len(messages)} messages that weren't quotes!"
     else:
         send_embed_flag = False
 
