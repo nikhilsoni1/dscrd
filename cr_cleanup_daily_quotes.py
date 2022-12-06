@@ -19,7 +19,7 @@ async def on_ready():
     # cleaning up daily-quotes, messages not sent by this bot will be deleted
     messages = list()
 
-    async for m in channel.history(limit=200):
+    async for m in channel.history(limit=None):
         if m.author != client.user:
             messages.append(m)
 
