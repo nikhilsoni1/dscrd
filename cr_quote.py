@@ -30,8 +30,9 @@ async def on_ready():
                 json_data = response.json()
                 q = json_data[0]["q"].strip()
                 a = json_data[0]["a"].strip()
+                q_t = f"\u200b\n{q}\n\u200b"
                 embedVar = discord.Embed(color=discord.Color.random())
-                embedVar.add_field(name=f"{a} says...", value=q)
+                embedVar.add_field(name=f"{a} says...", value=q_t)
                 embedVar.set_footer(text=pld)
 
                 await channel.send(embed=embedVar)
