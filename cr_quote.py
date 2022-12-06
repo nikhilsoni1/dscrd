@@ -7,24 +7,29 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == 'daily-quotes':
+            if channel.name == "daily-quotes":
 
                 u = discord.utils.utcnow()
                 p = u.astimezone(tz=pytz.timezone("US/Pacific"))
                 i = u.astimezone(tz=pytz.timezone("Asia/Kolkata"))
                 e = u.astimezone(tz=pytz.timezone("US/East-Indiana"))
-                pld = f"{u:%d %b \'%y %H:%M %Z}"
+                pld = f"{u:%d %b %y %H:%M %Z}"
                 if i.date() == e.date() == p.date():
                     pld = f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} - {p:%H:%M %Z}"
                 elif i.date() == e.date():
-                    pld = f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} | {p:%d %b %y %H:%M %Z}"
+                    pld = (
+                        f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} | {p:%d %b %y %H:%M %Z}"
+                    )
                 elif e.date() == p.date():
-                    pld = f"{i:%d %b %y %H:%M %Z} | {e:%d %b %y %H:%M %Z} - {p:%H:%M %Z}"
+                    pld = (
+                        f"{i:%d %b %y %H:%M %Z} | {e:%d %b %y %H:%M %Z} - {p:%H:%M %Z}"
+                    )
 
                 response = requests.get("https://zenquotes.io/api/random")
                 json_data = response.json()
@@ -38,13 +43,6 @@ async def on_ready():
                 await channel.send(embed=embedVar)
                 await client.close()
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)
