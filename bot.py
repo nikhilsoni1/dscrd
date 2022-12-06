@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+
 # import responses
 import os
 import json
@@ -35,7 +36,7 @@ async def nine_nine(ctx):
 
 @bot.command(name="roll_dice", help="Simulates rolling dice.")
 async def roll(ctx, number_of_dice=1, number_of_sides=6):
-    d = range(1, number_of_sides+1)
+    d = range(1, number_of_sides + 1)
     r = list()
     for i in range(number_of_dice):
         p = str(random.choice(d))
@@ -47,14 +48,18 @@ async def roll(ctx, number_of_dice=1, number_of_sides=6):
     print(response)
     await ctx.send(response)
 
+
 @bot.command(name="q", help="Get a random quote from zenquotes.io")
 async def get_quote(ctx):
     response = requests.get("https://zenquotes.io/api/random")
     json_data = response.json()
     q = json_data[0]["q"].strip()
     a = json_data[0]["a"].strip()
-    embedVar = discord.Embed(title="says...", description=q, color=discord.Color.random())
+    embedVar = discord.Embed(
+        title="says...", description=q, color=discord.Color.random()
+    )
     embedVar.set_author(name=a)
     await ctx.send(embed=embedVar)
+
 
 bot.run(TOKEN)
