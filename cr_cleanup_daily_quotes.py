@@ -14,8 +14,9 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!"')
+    guild = os.getenv("DISCORD_GUILD")
     channel = None
-    channel = discord.utils.get(client.get_all_channels(), guild__name='East or west Shree is the Best!', name='daily-quotes')
+    channel = discord.utils.get(client.get_all_channels(), guild__name=guild, name='daily-quotes')
 
     # cleaning up daily-quotes, messages not sent by this bot will be deleted
     messages = list()
