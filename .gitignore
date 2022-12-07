@@ -5,3 +5,4 @@
 .azure_vm
 scratch.py
 .bot_invite
+*.env
