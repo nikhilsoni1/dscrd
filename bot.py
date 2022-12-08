@@ -13,7 +13,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-
 @bot.event
 async def on_ready():
     print(f"{bot.user.name} has connected to Discord!")
@@ -87,5 +86,14 @@ async def get_kanye(ctx):
     embedVar.set_author(name=a)
     await ctx.send(embed=embedVar)
 
+@bot.command(name="sweep", help="Sweep last n messages not posted by a bot")
+async def get_sweeper(ctx, limit: int=5):
+    messages = list()
+    async for m in ctx.channel.history(limit=limit):
+        if m.author.bot != True:
+            messages.append(m)
+    step = 100
+    for m in discord.utils.as_chunks(messages, step):
+        await ctx.channel.delete_messages(m, reason=f"{ctx.channel.name} clean-up")
 
 bot.run(TOKEN)
