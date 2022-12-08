@@ -13,7 +13,9 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     guild = os.getenv("DISCORD_GUILD")
     channel = None
-    channel = discord.utils.get(client.get_all_channels(), guild__name=guild, name='daily-quotes')
+    channel = discord.utils.get(
+        client.get_all_channels(), guild__name=guild, name="daily-quotes"
+    )
 
     u = discord.utils.utcnow()
     p = u.astimezone(tz=pytz.timezone("US/Pacific"))
@@ -23,13 +25,9 @@ async def on_ready():
     if i.date() == e.date() == p.date():
         pld = f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} - {p:%H:%M %Z}"
     elif i.date() == e.date():
-        pld = (
-            f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} | {p:%d %b %y %H:%M %Z}"
-        )
+        pld = f"{i:%d %b %y %H:%M %Z} - {e:%H:%M %Z} | {p:%d %b %y %H:%M %Z}"
     elif e.date() == p.date():
-        pld = (
-            f"{i:%d %b %y %H:%M %Z} | {e:%d %b %y %H:%M %Z} - {p:%H:%M %Z}"
-        )
+        pld = f"{i:%d %b %y %H:%M %Z} | {e:%d %b %y %H:%M %Z} - {p:%H:%M %Z}"
 
     response = requests.get("https://zenquotes.io/api/random")
     json_data = response.json()

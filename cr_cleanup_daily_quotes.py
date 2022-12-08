@@ -16,7 +16,9 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     guild = os.getenv("DISCORD_GUILD")
     channel = None
-    channel = discord.utils.get(client.get_all_channels(), guild__name=guild, name='daily-quotes')
+    channel = discord.utils.get(
+        client.get_all_channels(), guild__name=guild, name="daily-quotes"
+    )
 
     # cleaning up daily-quotes, messages not sent by this bot will be deleted
     messages = list()
@@ -32,9 +34,11 @@ async def on_ready():
 
     step = 100
     for m_d in discord.utils.as_chunks(messages, step):
-        await channel.delete_messages(m_d, reason=f"{channel.name} clean-up, {client.user} messages kept intact.")
-    
-    footer_options=list()
+        await channel.delete_messages(
+            m_d, reason=f"{channel.name} clean-up, {client.user} messages kept intact."
+        )
+
+    footer_options = list()
     f1 = emoji.emojize("Swacch discord abhiyan :man_beard:")
     footer_options.append(f1)
 
@@ -42,8 +46,8 @@ async def on_ready():
     footer_options.append(f2)
 
     f3 = emoji.emojize("Aag laga di! Aag laga di! Aag laga di! :fire: :fire: :fire:")
-    footer_options.append(f3) 
-    
+    footer_options.append(f3)
+
     title = emoji.emojize("Clean-up anna :broom: :broom:")
     footer = random.choice(footer_options)
 
@@ -57,7 +61,9 @@ async def on_ready():
         send_embed_flag = False
 
     if send_embed_flag:
-        embedVar = discord.Embed(title=title, description=description, color=discord.Color.red())
+        embedVar = discord.Embed(
+            title=title, description=description, color=discord.Color.red()
+        )
         embedVar.set_footer(text=footer)
         await channel.send(embed=embedVar)
     await client.close()

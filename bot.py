@@ -13,6 +13,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+
 @bot.event
 async def on_ready():
     print(f"{bot.user.name} has connected to Discord!")
@@ -60,19 +61,22 @@ async def get_quote(ctx):
     embedVar.set_author(name=a)
     await ctx.send(embed=embedVar)
 
+
 @bot.command(name="ye", help="Get a random quote from Ye a.k.a. Kanye West")
 async def get_kanye(ctx):
 
-    ye_img = ["https://www.rollingstone.com/wp-content/uploads/2021/08/kanye-west-donda-review.jpg",
-    "https://api.time.com/wp-content/uploads/2017/06/kanye-west-9.jpg",
-    "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/2/6/1391699663153/Kanye-West-and-Taylor-Swi-005.jpg",
-    "https://www.highsnobiety.com/static-assets/thumbor/IN0vyfUCeBHGQlrKJZo3XjXpUCs=/1600x1067/www.highsnobiety.com/static-assets/wp-content/uploads/2022/10/21143756/demna-balenciaga-kanye-west-break-up-001.jpg",
-    "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_39/3029151/190927-kanye-west-ew-543p.jpg",
-    "https://www.rollingstone.com/wp-content/uploads/2022/10/PiersKanye.jpg",
-    "https://www.the-sun.com/wp-content/uploads/sites/6/2020/07/NINTCHDBPICT000596898568-10.jpg",
-    "https://img.buzzfeed.com/buzzfeed-static/static/2021-08/24/15/enhanced/d5d4ff604871/original-1372-1629819648-12.jpg",
-    "https://c8p9p3e5.rocketcdn.me/wp-content/uploads/2022/02/kanye-west-staring-meme.jpg",
-    "https://hoopshype.com/wp-content/uploads/sites/92/2018/10/gettyimages-474901582.jpg"]
+    ye_img = [
+        "https://www.rollingstone.com/wp-content/uploads/2021/08/kanye-west-donda-review.jpg",
+        "https://api.time.com/wp-content/uploads/2017/06/kanye-west-9.jpg",
+        "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/2/6/1391699663153/Kanye-West-and-Taylor-Swi-005.jpg",
+        "https://www.highsnobiety.com/static-assets/thumbor/IN0vyfUCeBHGQlrKJZo3XjXpUCs=/1600x1067/www.highsnobiety.com/static-assets/wp-content/uploads/2022/10/21143756/demna-balenciaga-kanye-west-break-up-001.jpg",
+        "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_39/3029151/190927-kanye-west-ew-543p.jpg",
+        "https://www.rollingstone.com/wp-content/uploads/2022/10/PiersKanye.jpg",
+        "https://www.the-sun.com/wp-content/uploads/sites/6/2020/07/NINTCHDBPICT000596898568-10.jpg",
+        "https://img.buzzfeed.com/buzzfeed-static/static/2021-08/24/15/enhanced/d5d4ff604871/original-1372-1629819648-12.jpg",
+        "https://c8p9p3e5.rocketcdn.me/wp-content/uploads/2022/02/kanye-west-staring-meme.jpg",
+        "https://hoopshype.com/wp-content/uploads/sites/92/2018/10/gettyimages-474901582.jpg",
+    ]
 
     ye_img = random.choice(ye_img)
     response = requests.get("https://api.kanye.rest")
@@ -86,8 +90,9 @@ async def get_kanye(ctx):
     embedVar.set_author(name=a)
     await ctx.send(embed=embedVar)
 
+
 @bot.command(name="sweep", help="Sweep last n messages not posted by a bot")
-async def get_sweeper(ctx, limit: int=5):
+async def get_sweeper(ctx, limit: int = 5):
     messages = list()
     async for m in ctx.channel.history(limit=limit):
         if m.author.bot != True:
@@ -95,5 +100,6 @@ async def get_sweeper(ctx, limit: int=5):
     step = 100
     for m in discord.utils.as_chunks(messages, step):
         await ctx.channel.delete_messages(m, reason=f"{ctx.channel.name} clean-up")
+
 
 bot.run(TOKEN)
