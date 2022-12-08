@@ -6,3 +6,5 @@
 scratch.py
 .bot_invite
 *.env
+.vscode/
+.idea/
