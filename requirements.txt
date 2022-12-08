@@ -40,6 +40,8 @@ pytz==2022.6
     # via -r requirements.in
 requests==2.28.1
     # via -r requirements.in
+tqdm==4.64.1
+    # via -r requirements.in
 urllib3==1.26.13
     # via requests
 yarl==1.8.2

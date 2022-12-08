@@ -8,3 +8,4 @@ scratch.py
 *.env
 .vscode/
 .idea/
+videos.json
