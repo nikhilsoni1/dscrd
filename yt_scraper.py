@@ -81,7 +81,7 @@ async def on_ready():
             else:
                 debug = True
                 pass
-    output_file_name = f"yt_{ts:%Y-%m-%d_%H:%M:%S.%f}.json"
+    output_file_name = f"yt_{ts:%Y-%m-%d-%H-%M-%S-%f}.json"
     fpath = os.path.join(json_store, output_file_name)
     if len(videos) > 0:
         with open(fpath, "w") as fp:
