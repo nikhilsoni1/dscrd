@@ -53,8 +53,7 @@ async def on_ready():
     channels = channels + threads
     messages = list()
     for channel in tqdm(channels):
-        # async for m in channel.history(after=latest_ts):
-        async for m in channel.history(limit=None):
+        async for m in channel.history(after=latest_ts):
             messages.append(m)
     messages = list(filter(lambda x: x.author != client.user, messages))
     messages = list(filter(lambda x: len(x.embeds) > 0, messages))
