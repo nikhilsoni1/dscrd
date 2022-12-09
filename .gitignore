@@ -10,3 +10,5 @@ scratch.py
 .idea/
 videos.json
 *.csv
+yt_info/
+.DS_Store
