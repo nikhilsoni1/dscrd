@@ -9,3 +9,4 @@ scratch.py
 .vscode/
 .idea/
 videos.json
+*.csv
