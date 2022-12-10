@@ -4,4 +4,3 @@ pytz
 emoji
 tqdm
 SQLAlchemy
-pandas

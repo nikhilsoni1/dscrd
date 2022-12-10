@@ -2,7 +2,6 @@ import sqlalchemy as db
 import re
 import os
 import json
-import pandas as pd
 import datetime
 import shutil
 
