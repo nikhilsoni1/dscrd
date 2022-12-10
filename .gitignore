@@ -12,3 +12,5 @@ videos.json
 *.csv
 yt_info/
 .DS_Store
+*.db
+*.db-journal
