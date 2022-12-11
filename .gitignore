@@ -14,3 +14,4 @@ yt_info/
 .DS_Store
 *.db
 *.db-journal
+gspread.json
