@@ -57,15 +57,19 @@ for file in file_paths:
         json_store += j.copy()
 
 insert = db.insert(youtube).prefix_with("OR IGNORE")
+records = 0
 for j in json_store:
     created_at = j["created_at"]
     j["created_at"] = datetime.datetime.fromisoformat(created_at)
     with engine.connect() as conn:
         result = conn.execute(insert, j)
-        debug = True
+        records += 1
 
 for file in file_names1:
     _from = os.path.join(source, file)
     _to = os.path.join(backup, file)
     shutil.move(_from, _to)
     
+table_changed_record = os.path.join(source, "table_change.txt")
+with open(table_changed_record, "w") as fp:
+    fp.write(str(records))
