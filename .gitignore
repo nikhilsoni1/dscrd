@@ -15,3 +15,4 @@ yt_info/
 *.db
 *.db-journal
 gspread.json
+upd-local-db.sh
