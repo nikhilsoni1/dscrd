@@ -6,25 +6,24 @@ import datetime
 import shutil
 
 # Defining the Engine
-engine = db.create_engine('sqlite:///all_data.db', echo=True)
-  
+engine = db.create_engine("sqlite:///all_data.db", echo=True)
+
 # Create the Metadata Object
 metadata_obj = db.MetaData()
-  
+
 # Define the profile table
-  
+
 # database name
 youtube = db.Table(
-    'youtube',                                        
-    metadata_obj,                                    
-    db.Column('created_at', db.TIMESTAMP, primary_key=True),  
-    db.Column('in_channel', db.String, primary_key=True),                    
-    db.Column('sent_by', db.String, primary_key=True),
-    db.Column('title', db.String, primary_key=True),
-    db.Column('url', db.String, primary_key=True)                
+    "youtube",
+    metadata_obj,
+    db.Column("created_at", db.TIMESTAMP, primary_key=True),
+    db.Column("in_channel", db.String, primary_key=True),
+    db.Column("sent_by", db.String, primary_key=True),
+    db.Column("title", db.String, primary_key=True),
+    db.Column("url", db.String, primary_key=True),
 )
-  
- 
+
 
 # Create the profile table
 metadata_obj.create_all(engine)
@@ -69,7 +68,7 @@ for file in file_names1:
     _from = os.path.join(source, file)
     _to = os.path.join(backup, file)
     shutil.move(_from, _to)
-    
+
 table_changed_record = os.path.join(source, "table_change.txt")
 with open(table_changed_record, "w") as fp:
     fp.write(str(records))
