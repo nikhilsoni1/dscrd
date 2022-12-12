@@ -1,5 +1,6 @@
 import discord
 import os
+
 # import requests
 # import pytz
 # import datetime
@@ -7,6 +8,7 @@ import os
 # import random
 from collections import OrderedDict
 import json
+
 # from pprint import pprint
 from tqdm import tqdm
 import datetime
@@ -36,13 +38,12 @@ else:
     latest_ts = ts_floor_m7d
 
 
-
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     guild = os.getenv("DISCORD_GUILD")
     channels = client.get_all_channels()
-    channels = list(filter(lambda x: x.type.name=="text", channels))
+    channels = list(filter(lambda x: x.type.name == "text", channels))
     threads = list()
     for c in channels:
         c_thread = c.threads
@@ -57,7 +58,7 @@ async def on_ready():
             messages.append(m)
     messages = list(filter(lambda x: x.author != client.user, messages))
     messages = list(filter(lambda x: len(x.embeds) > 0, messages))
-    
+
     videos = list()
     for m in messages:
 
@@ -84,11 +85,17 @@ async def on_ready():
     fpath = os.path.join(json_store, output_file_name)
     if len(videos) > 0:
         with open(fpath, "w") as fp:
-            json.dump(obj=videos, fp=fp, indent=4, sort_keys=True, default=str, ensure_ascii=False)
+            json.dump(
+                obj=videos,
+                fp=fp,
+                indent=4,
+                sort_keys=True,
+                default=str,
+                ensure_ascii=False,
+            )
     else:
         pass
     await client.close()
-    
 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
