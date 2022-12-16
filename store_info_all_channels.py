@@ -2,6 +2,8 @@ import discord
 import os
 from collections import OrderedDict
 import json
+
+# from pprint import pprint
 from tqdm import tqdm
 import datetime
 
@@ -14,11 +16,6 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     guild = os.getenv("DISCORD_GUILD")
-    if guild == "soni's lab":
-        pass
-    else:
-        await client.close()
-
     channels = client.get_all_channels()
     channels = list(filter(lambda x: x.type.name == "text", channels))
     threads = list()
@@ -29,14 +26,17 @@ async def on_ready():
         else:
             pass
     channels = channels + threads
-    for channel in tqdm(channels):
-        messages = list()
-        async for m in channel.history(limit=None):
-            messages.append(m)
-
-        step = 100
-        for m in discord.utils.as_chunks(messages, step):
-            await channel.delete_messages(m, reason=f"{channel.name} clean-up")
+    store = list()
+    for c in channels:
+        pld = dict()
+        pld.setdefault("guild_id", c.guild.id)
+        pld.setdefault("guild_name", c.guild.name)
+        pld.setdefault("channel_id", c.id)
+        pld.setdefault("channel_name", c.name)
+        pld.setdefault("channel_type", c.type.name)
+        store.append(pld.copy())
+    with open("dscrd-lab-channels.json", "w") as fp:
+        json.dump(store, fp, indent=4)
     await client.close()
 
 
