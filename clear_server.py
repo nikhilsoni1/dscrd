@@ -1,15 +1,7 @@
 import discord
 import os
-
-# import requests
-# import pytz
-# import datetime
-# import emoji
-# import random
 from collections import OrderedDict
 import json
-
-# from pprint import pprint
 from tqdm import tqdm
 import datetime
 
