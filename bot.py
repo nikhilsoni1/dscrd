@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-
-# import responses
+import re
 import os
 import json
 import random
@@ -101,5 +100,17 @@ async def get_sweeper(ctx, limit: int = 5):
     for m in discord.utils.as_chunks(messages, step):
         await ctx.channel.delete_messages(m, reason=f"{ctx.channel.name} clean-up")
 
+
+@bot.command(name="s60", help="Get a random quote from Ye a.k.a. Kanye West")
+async def get_s60(ctx):
+
+    with open("s60_quotes.json", "r") as fp:
+        quotes = json.load(fp)
+    q = random.choice(quotes).strip()
+    q = re.sub("\n{1,10}", "\n\n", q)
+    q = f"{q}\n"
+    title = "Studio 60 on the Sunset Strip"
+    embedVar = discord.Embed(title=title, description=q, color=discord.Color.random())
+    await ctx.send(embed=embedVar)
 
 bot.run(TOKEN)
