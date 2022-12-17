@@ -3,6 +3,8 @@ import sqlalchemy as db
 import pandas as pd
 import os
 import shutil
+import numpy as np
+import random
 
 source = "yt_info"
 table_changed_record = os.path.join(source, "table_change.txt")
@@ -58,12 +60,17 @@ p1 = df1.pivot_table(
 ).reset_index()
 p1.columns = ["Sent By", "Total Posts"]
 
+grand_total_row_df_values = {"Sent By": "Grand Total", "Total Posts": p1["Total Posts"].sum()}
+grand_total_row_df = pd.DataFrame(grand_total_row_df_values, index=[0])
+p1_prime = pd.concat([p1, grand_total_row_df], ignore_index=True)
+p1 = p1_prime.copy()
+
 # daily
 dt_unique = pd.Series(dt.unique())
 dt_unique = dt_unique[dt_unique < _today].sort_values().reset_index(drop=True)
 dt_denom = dt_unique.max() - dt_unique.min() + pd.Timedelta(days=1)
 dt_denom = dt_denom.days
-dt_avg = p1["Total Posts"].divide(dt_denom).round(2)
+dt_avg = p1["Total Posts"].divide(dt_denom)
 p2 = p1.copy()
 p2.insert(loc=len(list(p2)), column="Daily Posts", value=dt_avg)
 
@@ -72,14 +79,18 @@ wk_unique = pd.Series(wk.unique())
 wk_unique = wk_unique[wk_unique < _this_week].sort_values().reset_index(drop=True)
 wk_denom = wk_unique.max() - wk_unique.min() + pd.Timedelta(days=7)
 wk_denom = int(wk_denom.days / 7)
-wk_avg = p2["Total Posts"].divide(wk_denom).round(2)
+wk_avg = p2["Total Posts"].divide(wk_denom)
 p3 = p2.copy()
 p3.insert(loc=len(list(p3)), column="Weekly Posts", value=wk_avg)
 
+wt_daily_posts = 100
+wt_weekly_posts = 8
+wt_total_posts = 1
 
-daily_posts_wt = p3["Daily Posts"].multiply(100)
-weekly_posts_wt = p3["Weekly Posts"].multiply(8)
-total_posts_wt = p3["Total Posts"].multiply(1)
+daily_posts_wt = p3["Daily Posts"].multiply(wt_daily_posts)
+weekly_posts_wt = p3["Weekly Posts"].multiply(wt_weekly_posts)
+total_posts_wt = p3["Total Posts"].multiply(wt_total_posts)
+
 wt = (
     daily_posts_wt.add(weekly_posts_wt).add(total_posts_wt).sort_values(ascending=False)
 )
@@ -89,19 +100,31 @@ p3 = (
     .reset_index(drop=True)
     .reset_index(names="Rank")
 )
-p3["Rank"] = p3["Rank"].add(1)
-col_order = ["Rank", "Sent By", "Score", "Daily Posts", "Weekly Posts", "Total Posts"]
-p3 = p3[col_order]
 
+p3_prime = p3.drop(0)
+gt_row_df = p3.iloc[[0], :]
+gt_row_df.loc[:, "Rank"] = np.nan
+gt_row_df.loc[:, "Score"] = np.nan
+
+wt_info = gt_row_df.copy()
+wt_info.loc[:, "Sent By"] = "Score Weights"
+wt_info.loc[:, "Daily Posts"] = wt_daily_posts
+wt_info.loc[:, "Weekly Posts"] = wt_weekly_posts
+wt_info.loc[:, "Total Posts"] = wt_total_posts
+
+p3_prime = pd.concat([p3_prime, gt_row_df], ignore_index=True)
+col_order = ["Rank", "Sent By", "Score", "Daily Posts", "Weekly Posts", "Total Posts"]
+p3_prime = p3_prime[col_order]
+p3_prime = p3_prime.round()
+p3_prime = pd.concat([p3_prime, wt_info], ignore_index=True)
+random_impute = random.randint(-10e3, -10e2)
+p3_prime = p3_prime.fillna(random_impute)
+p3_prime = p3_prime.apply(pd.to_numeric, downcast='integer', errors="ignore").astype(str)
+p3_prime = p3_prime.replace(to_replace=f"{random_impute}", value="")
+p3 = p3_prime.copy()
 
 p3_pld = [p3.astype(str).columns.values.tolist()] + p3.astype(str).values.tolist()
 
-try:
-    worksheet2 = sh.add_worksheet(title="Ranking", rows=p3.shape[0], cols=len(list(p3)))
-except gspread.exceptions.APIError:
-    to_del = sh.worksheet("Ranking")
-    sh.del_worksheet(to_del)
-    worksheet2 = sh.add_worksheet(title="Ranking", rows=p3.shape[0], cols=len(list(p3)))
-
+worksheet2 = sh.worksheet(title="Ranking")
 worksheet2.clear()
 worksheet2.update(p3_pld)
