@@ -20,20 +20,36 @@ if int(records) > 0:
 else:
     exit()
 
+# Initiating connection with DB
 engine = db.create_engine("sqlite:///all_data.db", echo=True)
+# Initiating connection with DB
+
+# Google Sheets - Initiating connection
 gc = gspread.service_account(filename="gspread.json")
 sh = gc.open_by_url(
     url="https://docs.google.com/spreadsheets/d/16zBo7nKAljUkkVDkQDbmENs6WUt62Gtmw7OiWOPSxLg/"
 )
+# Google Sheets - Initiating connection
 
-
+# Reading and writing all videos from DB -------------
 df = pd.read_sql_table("youtube", engine.connect())
 df = df.sort_values(by=["created_at"], ascending=[False]).reset_index(drop=True)
+
+# Column name renaming and ordering
+df_col_names = OrderedDict()
+df_col_names.setdefault("created_at", "Timestamp (UTC)")
+df_col_names.setdefault("in_channel", "Channel/Thread")
+df_col_names.setdefault("sent_by", "User")
+df_col_names.setdefault("title", "Title")
+df_col_names.setdefault("url", "URL")
+df = df[df_col_names.keys()]
+df = df.rename(columns=df_col_names)
+
 pld = [df.astype(str).columns.values.tolist()] + df.astype(str).values.tolist()
 worksheet = sh.worksheet(title="All Videos")
 worksheet.clear()
 worksheet.update(pld)
-
+# Reading and writing all videos from DB -------------
 
 # Summary Stats -------------
 # Number of days/weeks calc. for denom
