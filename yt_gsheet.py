@@ -43,9 +43,9 @@ df_col_names.setdefault("sent_by", "User")
 df_col_names.setdefault("title", "Title")
 df_col_names.setdefault("url", "URL")
 df = df[df_col_names.keys()]
-df = df.rename(columns=df_col_names)
+df_prime = df.rename(columns=df_col_names)
 
-pld = [df.astype(str).columns.values.tolist()] + df.astype(str).values.tolist()
+pld = [df_prime.astype(str).columns.values.tolist()] + df_prime.astype(str).values.tolist()
 worksheet = sh.worksheet(title="All Videos")
 worksheet.clear()
 worksheet.update(pld)
