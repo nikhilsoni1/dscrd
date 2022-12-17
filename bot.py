@@ -133,8 +133,16 @@ async def get_bb(ctx, winner: discord.User=None):
 
     with open("tenor-search-for-term-winner.json", "r") as fp:
         winner_gifs = json.load(fp)
-    with open("nayagan-channels.json", "r") as fp:
-        channel_info = json.load(fp)
+
+    which_guild = os.getenv("DISCORD_GUILD")
+
+    if which_guild == "East or west Shree is the Best!":
+        with open("nayagan-channels.json", "r") as fp:
+            channel_info = json.load(fp)
+    else:
+        with open("dscrd-lab-channels.json", "r") as fp:
+            channel_info = json.load(fp)
+            
     channel_info = list(filter(lambda x: x.get("channel_id") != current_channel_id, channel_info))
     dumbledore_message = await ctx.send(embed=dumbledore_clapping)
 
@@ -159,6 +167,7 @@ async def get_bb(ctx, winner: discord.User=None):
         await asyncio.sleep(3)
         countdown_messages.append(m)
 
+    # Server blast
     for channel in channel_info:
         await asyncio.sleep(1)
         channel_id = channel.get("channel_id")
@@ -166,7 +175,9 @@ async def get_bb(ctx, winner: discord.User=None):
         n = channel.get("channel_name")
         d = uuid4()
         g = random.choice(winner_gifs)
-        embedVar = discord.Embed(color=discord.Color.random())
+        embed_t = f"{winning_user_name} wins the 1st Hangman Triward Tournament"
+        embed_d = "suck it up losers..."
+        embedVar = discord.Embed(title=embed_t, description=embed_d, color=discord.Color.random())
         embedVar.set_image(url=g)
         embedVar.set_footer(text=d)
         print(f"{n} - {d}")
