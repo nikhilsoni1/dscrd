@@ -51,5 +51,13 @@ for r in results:
     gifs.append(url)
 
 f = f"tenor-search-for-term-{tenor_search_term}.json"
+
+if os.path.exists(f):
+    with open(f, "r") as fp:
+        existing_gifs = json.load(fp)
+    all_gifs = gifs + existing_gifs
+    all_gifs = list(set(all_gifs))
+else:
+    all_gifs = gifs
 with open(f, "w") as fp:
-    json.dump(gifs, fp, indent=4)
+    json.dump(all_gifs, fp, indent=4)
