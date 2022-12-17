@@ -38,10 +38,11 @@ df = df.sort_values(by=["created_at"], ascending=[False]).reset_index(drop=True)
 # Column name renaming and ordering
 df_col_names = OrderedDict()
 df_col_names.setdefault("created_at", "Timestamp (UTC)")
-df_col_names.setdefault("in_channel", "Channel/Thread")
-df_col_names.setdefault("sent_by", "User")
 df_col_names.setdefault("title", "Title")
 df_col_names.setdefault("url", "URL")
+df_col_names.setdefault("sent_by", "User")
+df_col_names.setdefault("in_channel", "Channel/Thread")
+
 df = df[df_col_names.keys()]
 df_prime = df.rename(columns=df_col_names)
 
