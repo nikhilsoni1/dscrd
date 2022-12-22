@@ -219,6 +219,13 @@
     {
         "guild_id": 1044001004015853660,
         "guild_name": "East or west Shree is the Best!",
+        "channel_id": 1055004632608424008,
+        "channel_name": "EDM Vishnu Playlist info",
+        "channel_type": "public_thread"
+    },
+    {
+        "guild_id": 1044001004015853660,
+        "guild_name": "East or west Shree is the Best!",
         "channel_id": 1044362932844236940,
         "channel_name": "Stats and cognition",
         "channel_type": "public_thread"
