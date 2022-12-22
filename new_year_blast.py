@@ -16,8 +16,8 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!"')
     guild = os.getenv("DISCORD_GUILD")
 
-    with open("tenor-search-for-term-winner.json", "r") as fp:
-        winner_gifs = json.load(fp)
+    with open("tenor-search-for-term-nye.json", "r") as fp:
+        gifs = json.load(fp)
 
     if guild == "East or west Shree is the Best!":
         with open("nayagan-channels.json", "r") as fp:
@@ -30,10 +30,10 @@ async def on_ready():
         channel_id = c.get("channel_id")
         channel = client.get_channel(channel_id)
         channel_name = c.get("channel_name")
-        gif = random.choice(winner_gifs)
-        title = f"NYE TITLE"
+        gif = random.choice(gifs)
+        title = f"Happy New Year 2023!"
         description = "NYE DESCRIPTION"
-        footer = f"NYE FOOTER - {uuid4()}"
+        footer = f"NYE FOOTER\n{uuid4()}"
         embedVar = discord.Embed(title=title, description=description, color=discord.Color.random())
         embedVar.set_image(url=gif)
         embedVar.set_footer(text=footer)
