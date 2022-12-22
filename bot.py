@@ -117,76 +117,84 @@ async def get_s60(ctx):
 
 @bot.command(name="bb", help="Boombastic")
 async def get_bb(ctx, winner: discord.User=None):
-    winning_user_name = winner.name
-    # return None
-    current_channel_id = ctx.channel.id
-    current_channel = bot.get_channel(current_channel_id)
-    dumbledore_clapping = discord.Embed(color=discord.Color.random())
-    dumbledore_clapping.set_image(
-        url="https://media.tenor.com/iQfqZ-n4QDgAAAAC/dumbledore-applause.gif"
-    )
+    no_t_t = "This command has been disabled until next tournament finals"
+    no_t_d = "sorry for the inconvenience"
+    no_t_f = "No chicken dinner for anyone..."
+    no_tournament = discord.Embed(title=no_t_t, description=no_t_d, color=discord.Color.red())
+    no_tournament.set_image(url="https://media.tenor.com/pXhOGKsjgycAAAAC/boys-dance.gif")
+    no_tournament.set_footer(text=no_t_f)
+    await ctx.send(embed=no_tournament)
 
-    obama_t = f"{winning_user_name} wins the 1st Hangman Triward Tournament"
-    obama_d = "suck it up losers..."
-    obama_out = discord.Embed(title=obama_t, description=obama_d, color=discord.Color.dark_gold())
-    obama_out.set_image(url="https://media.tenor.com/WJIEOHsnJmkAAAAC/obama-mic-drop.gif")
+    # winning_user_name = winner.name
+    # # return None
+    # current_channel_id = ctx.channel.id
+    # current_channel = bot.get_channel(current_channel_id)
+    # dumbledore_clapping = discord.Embed(color=discord.Color.random())
+    # dumbledore_clapping.set_image(
+    #     url="https://media.tenor.com/iQfqZ-n4QDgAAAAC/dumbledore-applause.gif"
+    # )
 
-    with open("tenor-search-for-term-winner.json", "r") as fp:
-        winner_gifs = json.load(fp)
+    # obama_t = f"{winning_user_name} wins the 1st Hangman Triward Tournament"
+    # obama_d = "suck it up losers..."
+    # obama_out = discord.Embed(title=obama_t, description=obama_d, color=discord.Color.dark_gold())
+    # obama_out.set_image(url="https://media.tenor.com/WJIEOHsnJmkAAAAC/obama-mic-drop.gif")
 
-    which_guild = os.getenv("DISCORD_GUILD")
+    # with open("tenor-search-for-term-winner.json", "r") as fp:
+    #     winner_gifs = json.load(fp)
 
-    if which_guild == "East or west Shree is the Best!":
-        with open("nayagan-channels.json", "r") as fp:
-            channel_info = json.load(fp)
-    else:
-        with open("dscrd-lab-channels.json", "r") as fp:
-            channel_info = json.load(fp)
+    # which_guild = os.getenv("DISCORD_GUILD")
+
+    # if which_guild == "East or west Shree is the Best!":
+    #     with open("nayagan-channels.json", "r") as fp:
+    #         channel_info = json.load(fp)
+    # else:
+    #     with open("dscrd-lab-channels.json", "r") as fp:
+    #         channel_info = json.load(fp)
             
-    channel_info = list(filter(lambda x: x.get("channel_id") != current_channel_id, channel_info))
-    dumbledore_message = await ctx.send(embed=dumbledore_clapping)
+    # channel_info = list(filter(lambda x: x.get("channel_id") != current_channel_id, channel_info))
+    # dumbledore_message = await ctx.send(embed=dumbledore_clapping)
 
-    countdown_gifs = [
-        "https://media.tenor.com/oRFRlKfQtHwAAAAC/fist-fight-ice-cube.gif",
-        "https://media.tenor.com/cpQa4b7u5voAAAAM/cubs-two.gif",
-        "https://media.tenor.com/R13zRSd25owAAAAC/number1-numberone.gif",
-        "https://media.tenor.com/WRFJ3pkp_9IAAAAC/los-angeles-lakers-lebron-james.gif"
+    # countdown_gifs = [
+    #     "https://media.tenor.com/oRFRlKfQtHwAAAAC/fist-fight-ice-cube.gif",
+    #     "https://media.tenor.com/cpQa4b7u5voAAAAM/cubs-two.gif",
+    #     "https://media.tenor.com/R13zRSd25owAAAAC/number1-numberone.gif",
+    #     "https://media.tenor.com/WRFJ3pkp_9IAAAAC/los-angeles-lakers-lebron-james.gif"
 
-    ]
+    # ]
 
-    countdown_messages = list()
-    countdown_messages.append(dumbledore_message)
-    await asyncio.sleep(3)
-    for c_gif in countdown_gifs:
-        footer = f"{uuid4()}"
-        print(f"countdown - {footer}")
-        embd = discord.Embed(color=discord.Color.dark_gold())
-        embd.set_image(url=c_gif)
-        embd.set_footer(text=footer)
-        m = await ctx.send(embed=embd)
-        await asyncio.sleep(3)
-        countdown_messages.append(m)
+    # countdown_messages = list()
+    # countdown_messages.append(dumbledore_message)
+    # await asyncio.sleep(3)
+    # for c_gif in countdown_gifs:
+    #     footer = f"{uuid4()}"
+    #     print(f"countdown - {footer}")
+    #     embd = discord.Embed(color=discord.Color.dark_gold())
+    #     embd.set_image(url=c_gif)
+    #     embd.set_footer(text=footer)
+    #     m = await ctx.send(embed=embd)
+    #     await asyncio.sleep(3)
+    #     countdown_messages.append(m)
 
-    # Server blast
-    for channel in channel_info:
-        await asyncio.sleep(1)
-        channel_id = channel.get("channel_id")
-        c = bot.get_channel(channel_id)
-        n = channel.get("channel_name")
-        d = uuid4()
-        g = random.choice(winner_gifs)
-        embed_t = f"{winning_user_name} wins the 1st Hangman Triward Tournament"
-        embed_d = "suck it up losers..."
-        embedVar = discord.Embed(title=embed_t, description=embed_d, color=discord.Color.random())
-        embedVar.set_image(url=g)
-        embedVar.set_footer(text=d)
-        print(f"{n} - {d}")
-        await c.send(embed=embedVar)
-    print(f"{'-'*20}\n")
+    # # Server blast
+    # for channel in channel_info:
+    #     await asyncio.sleep(1)
+    #     channel_id = channel.get("channel_id")
+    #     c = bot.get_channel(channel_id)
+    #     n = channel.get("channel_name")
+    #     d = uuid4()
+    #     g = random.choice(winner_gifs)
+    #     embed_t = f"{winning_user_name} wins the 1st Hangman Triward Tournament"
+    #     embed_d = "suck it up losers..."
+    #     embedVar = discord.Embed(title=embed_t, description=embed_d, color=discord.Color.random())
+    #     embedVar.set_image(url=g)
+    #     embedVar.set_footer(text=d)
+    #     print(f"{n} - {d}")
+    #     await c.send(embed=embedVar)
+    # print(f"{'-'*20}\n")
 
-    await current_channel.delete_messages(countdown_messages)
-    await ctx.send(content = "@everyone")
-    await asyncio.sleep(3)
-    await ctx.send(embed=obama_out)
+    # await current_channel.delete_messages(countdown_messages)
+    # await ctx.send(content = "@everyone")
+    # await asyncio.sleep(3)
+    # await ctx.send(embed=obama_out)
 
 bot.run(TOKEN)
