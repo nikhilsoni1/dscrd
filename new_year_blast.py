@@ -22,9 +22,15 @@ async def on_ready():
     if guild == "East or west Shree is the Best!":
         with open("nayagan-channels.json", "r") as fp:
             channel_info = json.load(fp)
+
+        with open("nayagan-members.json", "r") as fp:
+            member_info = json.load(fp)
     else:
         with open("dscrd-lab-channels.json", "r") as fp:
             channel_info = json.load(fp)
+        
+        with open("dscrd-lab-members.json", "r") as fp:
+            member_info = json.load(fp)
 
     for c in channel_info:
         channel_id = c.get("channel_id")
