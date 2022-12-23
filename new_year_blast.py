@@ -28,7 +28,7 @@ async def on_ready():
     else:
         with open("dscrd-lab-channels.json", "r") as fp:
             channel_info = json.load(fp)
-        
+
         with open("dscrd-lab-members.json", "r") as fp:
             member_info = json.load(fp)
 
@@ -40,7 +40,9 @@ async def on_ready():
         title = f"Happy New Year 2023!"
         description = "NYE DESCRIPTION"
         footer = f"NYE FOOTER\n{uuid4()}"
-        embedVar = discord.Embed(title=title, description=description, color=discord.Color.random())
+        embedVar = discord.Embed(
+            title=title, description=description, color=discord.Color.random()
+        )
         embedVar.set_image(url=gif)
         embedVar.set_footer(text=footer)
         print(f"{channel_name} - {footer}")
@@ -51,4 +53,3 @@ async def on_ready():
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)
-
