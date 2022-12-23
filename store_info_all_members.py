@@ -36,7 +36,7 @@ async def on_ready():
         pld.setdefault("member_discriminator", m.discriminator)
         store.append(pld.copy())
         print(f"{m.name}#{m.discriminator}")
-    with open("nayagan-members.json", "w") as fp:
+    with open("dscrd-lab-members.json", "w") as fp:
         json.dump(store, fp, indent=4, sort_keys=True)
     await client.close()
 

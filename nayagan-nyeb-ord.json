@@ -2,31 +2,31 @@
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/815842542057947176/a2687b61a14f70e6d3e16fcb0273f10a.png?size=1024",
         "member_discriminator": "3208",
-        "member_foo": "a8efef3f-b373-4cd6-a7ff-66e75c67759e",
+        "member_foo": "dd3e9125-4cb5-49f6-a7dd-ab67e892bcde",
         "member_id": 815842542057947176,
         "member_mention": "<@815842542057947176>",
         "member_name": "latefordinner1594",
         "member_nyeb": false,
-        "member_nyeb_order": null
+        "member_nyeb_order": 0
     },
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1043995022208544930/5445ffd7ffb201a98393cbdf684ea4b1.png?size=1024",
         "member_discriminator": "8153",
-        "member_foo": "3efff864-3bd5-41db-88e4-257628cc5596",
+        "member_foo": "7d874eee-23b1-4b30-9e2f-5713fcbb02fc",
         "member_id": 1043995022208544930,
         "member_mention": "<@1043995022208544930>",
         "member_name": "soni",
         "member_nyeb": false,
-        "member_nyeb_order": null
+        "member_nyeb_order": 1
     },
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1044082655899156631/fb9d497b7fbdf28d6c114c11a346bfb1.png?size=1024",
         "member_discriminator": "6100",
-        "member_foo": "fd477420-3c23-44ed-9b82-96b95a483ffb",
+        "member_foo": "7ff6b2d6-c71a-4b26-add0-115a79ac809e",
         "member_id": 1044082655899156631,
         "member_mention": "<@1044082655899156631>",
         "member_name": "Shreesha",
         "member_nyeb": false,
-        "member_nyeb_order": null
+        "member_nyeb_order": 2
     }
 ]
