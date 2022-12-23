@@ -115,13 +115,18 @@ async def get_s60(ctx):
     embedVar = discord.Embed(title=title, description=q, color=discord.Color.random())
     await ctx.send(embed=embedVar)
 
+
 @bot.command(name="bb", help="Boombastic")
-async def get_bb(ctx, winner: discord.User=None):
+async def get_bb(ctx, winner: discord.User = None):
     no_t_t = "This command has been disabled until next tournament finals"
     no_t_d = "sorry for the inconvenience"
     no_t_f = "No chicken dinner for anyone..."
-    no_tournament = discord.Embed(title=no_t_t, description=no_t_d, color=discord.Color.red())
-    no_tournament.set_image(url="https://media.tenor.com/pXhOGKsjgycAAAAC/boys-dance.gif")
+    no_tournament = discord.Embed(
+        title=no_t_t, description=no_t_d, color=discord.Color.red()
+    )
+    no_tournament.set_image(
+        url="https://media.tenor.com/pXhOGKsjgycAAAAC/boys-dance.gif"
+    )
     no_tournament.set_footer(text=no_t_f)
     await ctx.send(embed=no_tournament)
 
@@ -150,7 +155,7 @@ async def get_bb(ctx, winner: discord.User=None):
     # else:
     #     with open("dscrd-lab-channels.json", "r") as fp:
     #         channel_info = json.load(fp)
-            
+
     # channel_info = list(filter(lambda x: x.get("channel_id") != current_channel_id, channel_info))
     # dumbledore_message = await ctx.send(embed=dumbledore_clapping)
 
@@ -196,5 +201,6 @@ async def get_bb(ctx, winner: discord.User=None):
     # await ctx.send(content = "@everyone")
     # await asyncio.sleep(3)
     # await ctx.send(embed=obama_out)
+
 
 bot.run(TOKEN)

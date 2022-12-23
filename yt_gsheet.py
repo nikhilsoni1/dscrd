@@ -46,7 +46,9 @@ df_col_names.setdefault("in_channel", "Channel/Thread")
 df = df[df_col_names.keys()]
 df_prime = df.rename(columns=df_col_names)
 
-pld = [df_prime.astype(str).columns.values.tolist()] + df_prime.astype(str).values.tolist()
+pld = [df_prime.astype(str).columns.values.tolist()] + df_prime.astype(
+    str
+).values.tolist()
 worksheet = sh.worksheet(title="All Videos")
 worksheet.clear()
 worksheet.update(pld)
@@ -60,7 +62,7 @@ dt_unique = pd.Series(dt.unique())
 dt_unique = dt_unique[dt_unique < _today].sort_values().reset_index(drop=True)
 dt_denom = dt_unique.max() - dt_unique.min() + pd.Timedelta(days=1)
 denom_dt = dt_denom.days
-denom_wk = denom_dt/7
+denom_wk = denom_dt / 7
 # Number of days/weeks calc. for denom
 
 # Initial pivot table
@@ -104,7 +106,7 @@ piv = pd.concat([piv, piv_sum], ignore_index=True)
 piv = piv.reset_index(drop=True)
 piv = piv.reset_index(names="rank")
 piv.loc[:, "rank"] = piv["rank"].add(1)
-piv.loc[piv["sent_by"]=="Grand Total", "rank"] = -1
+piv.loc[piv["sent_by"] == "Grand Total", "rank"] = -1
 # Sorting and numbers correction
 
 # Column name renaming and ordering
