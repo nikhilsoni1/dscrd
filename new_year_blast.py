@@ -42,11 +42,15 @@ async def on_ready():
             nyeb_order = json.load(fp)
 
     nyeb_order_sorted = sorted(nyeb_order, key=lambda x: x["member_nyeb_order"])
-    nyeb_order_filtered = list(filter(lambda x: not x["member_nyeb"], nyeb_order_sorted))
-    if len(nyeb_order_filtered) == 0:
+
+    member = None
+    for x in nyeb_order_sorted:
+        if not x["member_nyeb"]:
+            member = x
+            break
+    if member is None:
         await client.close()
         return None
-    member = nyeb_order_filtered[0]
     member["member_nyeb"] = True
     member_id = member.get("member_id")
     member_mention = member.get("member_mention")
@@ -54,7 +58,7 @@ async def on_ready():
     _member = client.get_user(member_id)
     member_avatar = member.get("member_avatar")
     with open(ord_f, "w") as fp:
-            nyeb_order = json.dump(nyeb_order_filtered, fp, indent=4, sort_keys=True)
+            nyeb_order = json.dump(nyeb_order_sorted, fp, indent=4, sort_keys=True)
     dm_title = "DM"
     dm_description = member.get("member_foo")
     embedVar = discord.Embed(title=dm_title, description=dm_description, color=discord.Color.random())

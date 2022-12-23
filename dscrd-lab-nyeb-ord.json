@@ -2,41 +2,41 @@
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1043995022208544930/5445ffd7ffb201a98393cbdf684ea4b1.png?size=1024",
         "member_discriminator": "8153",
-        "member_foo": "817b1673-b4b8-46a3-b2b1-2cd9f0c58877",
+        "member_foo": "4fa424d8-09b9-4963-9706-ecb363be7c1f",
         "member_id": 1043995022208544930,
         "member_mention": "<@1043995022208544930>",
         "member_name": "soni",
-        "member_nyeb": false,
+        "member_nyeb": true,
         "member_nyeb_order": 0
     },
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1043995022208544930/5445ffd7ffb201a98393cbdf684ea4b1.png?size=1024",
         "member_discriminator": "8153",
-        "member_foo": "af095eb5-16e1-477f-ac87-f33b45cee43c",
+        "member_foo": "645f54be-3b87-44fb-8190-c519b8110893",
         "member_id": 1043995022208544930,
         "member_mention": "<@1043995022208544930>",
         "member_name": "soni",
-        "member_nyeb": false,
+        "member_nyeb": true,
         "member_nyeb_order": 1
     },
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1043995022208544930/5445ffd7ffb201a98393cbdf684ea4b1.png?size=1024",
         "member_discriminator": "8153",
-        "member_foo": "9ea88f8f-f1a8-4903-916c-0b35ccd3d81d",
+        "member_foo": "d8381818-67c4-45eb-a37a-ff7894832ef5",
         "member_id": 1043995022208544930,
         "member_mention": "<@1043995022208544930>",
         "member_name": "soni",
-        "member_nyeb": false,
+        "member_nyeb": true,
         "member_nyeb_order": 2
     },
     {
         "member_avatar": "https://cdn.discordapp.com/avatars/1043995022208544930/5445ffd7ffb201a98393cbdf684ea4b1.png?size=1024",
         "member_discriminator": "8153",
-        "member_foo": "f06675b5-56f7-47a6-8988-b80f76f72878",
+        "member_foo": "e1f14b18-39ca-49db-9872-f9082a04d352",
         "member_id": 1043995022208544930,
         "member_mention": "<@1043995022208544930>",
         "member_name": "soni",
-        "member_nyeb": false,
+        "member_nyeb": true,
         "member_nyeb_order": 3
     }
 ]
