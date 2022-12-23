@@ -5,6 +5,7 @@ import json
 
 tenor_search_term = "winner"
 tenor_search_limit = 10
+tenor_filename_suffix = tenor_search_term
 
 try:
     tenor_search_term = sys.argv[1]
@@ -13,6 +14,11 @@ except IndexError:
 
 try:
     tenor_search_limit = int(sys.argv[2])
+except IndexError:
+    pass
+
+try:
+    tenor_filename_suffix = sys.argv[3]
 except IndexError:
     pass
 
@@ -50,7 +56,7 @@ for r in results:
     url = gif.get("url")
     gifs.append(url)
 
-f = f"tenor-search-for-term-{tenor_search_term}.json"
+f = f"tenor-search-for-term-{tenor_filename_suffix}.json"
 
 if os.path.exists(f):
     with open(f, "r") as fp:
